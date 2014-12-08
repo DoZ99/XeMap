@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />  
+        <link rel="stylesheet" href="css/jqsimplemenu.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" href="css/topcoat-mobile-dark.min.css" />
+        <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/xemap.css"/>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        
+        <title>XeMap</title>
+    </head>
+    <body>
+        <div  class="app">
+          <div>
+            <ul class="menu">
+              <li><a href="#" id="1">MAP</a>
+              </li>
+              <li><a href="#" id="2">DATA</a>
+              </li>
+              <li><a href="#" id="3">SETUP</a>
+                <!--<ul>
+                  <li><a href="#">Maybe put something here</a></li>
+                  <li><a href="#">or here</a></li>
+                </ul>-->
+              </li>
+              <li><a href="#" id="4">BLUETOOTH</a>
+            </ul>
+            <div id="clock">
+              <div id="time"></div>
+              <!--<div id="date"></div>-->
+            </div>
+          </div>
+
+          <div class="clear" > </div>
+
+          <div id="map" class="main"></div>
+          <div id="data" class="main">
+            <div class="row display">
+              <div class="wpt-box"><div class="inner">Navigating To: <span id="navTo">N/A</span></div></div>
+              <div class="data-box"><div class="inner"><span id="speed">0.0</span>Speed</div></div>
+              <div class="data-box"><div class="inner"><span id="sog">0.0</span>SOG</div></div>
+              <div class="data-box"><div class="inner"><span id="cog">000</span>COG</div></div>
+              <div class="data-box"><div class="inner"><span id="ttw">00</span>TTW</div></div>
+              <div class="data-box"><div class="inner"><span id="dtw">00</span>DTW</div></div>
+              <div class="data-box"><div class="inner"><span id="btw">00</span>BTW</div></div>
+              <div class="data-box"><div class="inner"><span id="tws">0.0</span>TWS</div></div>
+              <div class="data-box"><div class="inner"><span id="twa">000</span>TWA</div></div>
+              <div class="data-box"><div class="inner"><span id="twd">000</span>TWD</div></div>
+              <div class="data-box"><div class="inner"><span id="vmg">0.0</span>VMG</div></div>
+            </div>
+            <div class="row display">
+              <!--<div class="data-box"><div class="inner"><span class="sml" id="time">00:00:00</span>Time</div></div>-->
+              <div class="data-box"><div class="inner"><span class="pos"  id="pos">0  00.00 N<br/>00 00.00 W</span>Position</div></div>
+              <div class="data-box"><div class="inner"><span class="grn" id="shift">+ 00&deg;</span>Shift</div></div>
+              <div class="data-box"><div class="inner"><span class="red" id="vmgPercent">00%</span>% VMG</div></div>
+            </div>
+          </div>
+          
+          <div id="setup" class="main">
+            <div class="menu-row display">
+              <label class="topcoat-switch" id="useGPS">
+                <input type="checkbox" class="topcoat-switch__input" checked>
+                <div class="topcoat-switch__toggle"></div>
+              </label>
+              Bluetooth GPS?
+            </div>
+            
+            <div class="row display">
+              <div>
+                <button class="topcoat-button" style="margin: 2px" id="refreshButton">Scan for devices</button>
+              </div>
+              <ul id="deviceList" class="topcoat-list">
+              </ul>
+            </div>
+          
+            <div class="row display" id="connectedScreen">
+              <div>
+                <button class="topcoat-button" style="margin: 2px" id="disconnectButton">Disconnect</button>
+              </div>
+              <div id="messageDiv" style="font-size: 2em; color: white">
+              </div>
+            </div>
+            
+            <!--
+            <form enctype="multipart/form-data">
+                <input name="file" type="file" />
+                <input type="button" value="Upload" />
+            </form>
+            <progress></progress>
+
+            <script>
+              $(':file').change(function(){
+                  var file = this.files[0];
+                  var name = file.name;
+                  var size = file.size;
+                  var type = file.type;
+                  //Your validation
+              });
+              
+              $(':button').click(function(){
+                  var formData = new FormData($('form')[0]);
+                  $.ajax({
+                      url: 'upload.php',  //Server script to process data
+                      type: 'POST',
+                      xhr: function() {  // Custom XMLHttpRequest
+                          var myXhr = $.ajaxSettings.xhr();
+                          if(myXhr.upload){ // Check if upload property exists
+                              myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+                          }
+                          return myXhr;
+                      },
+                      //Ajax events
+                      beforeSend: beforeSendHandler,
+                      success: completeHandler,
+                      error: errorHandler,
+                      // Form data
+                      data: formData,
+                      //Options to tell jQuery not to process data or worry about content-type.
+                      cache: false,
+                      contentType: false,
+                      processData: false
+                  });
+              });
+              
+              function progressHandlingFunction(e){
+                  if(e.lengthComputable){
+                      $('progress').attr({value:e.loaded,max:e.total});
+                  }
+              }
+            </script>
+            -->
+            
+          </div>
+          <div id="btooth" class="main" style="text-shadow: none">
+            <div class="row display">
+              Bluetooth raw feed:<br><br>
+              <div id="btMsgDiv">
+                <textarea id="btMsg" readonly></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <script type="text/javascript">  
+          var appYes = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+          if ( appYes ) {
+            jQuery.getScript("cordova.js", function(data, status, jqxhr) {});
+          }
+        </script>
+
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/bluetooth.js"></script>
+        <script type="text/javascript" src="js/leaflet.js"></script>
+        <!--<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>-->
+        <script type="text/javascript" src="js/jqsimplemenu.js"></script>
+        <script type="text/javascript" src="js/nmea.js"></script>
+        
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>

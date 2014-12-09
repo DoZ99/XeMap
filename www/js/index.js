@@ -69,10 +69,11 @@ var app = {
         $("#map").show();
         $('.menu').jqsimplemenu();
         
-        var appYes = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+        var appYes = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'file://' ) === -1;
         if (!appYes) {
           $("#3").hide();
           $("#4").hide();
+        } else {
           bt.connect();
         }
         //$('#clock').simpleClock();
@@ -258,9 +259,9 @@ function drawmap(gpx_file) {
   var mapnikURL = 'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png';
   //var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/efad1102a6054f70b0b563e4671f96c5/{styleId}/256/{z}/{x}/{y}.png';
   var seaUrl = 'http://t1.openseamap.org/seamark/{z}/{x}/{y}.png';
-  var npeUrl = 'http://a.ooc.openstreetmap.org/npe/{z}/{x}/{y}.png';
-  var os1Url = 'http://a.ooc.openstreetmap.org/os1/{z}/{x}/{y}.jpg';
-  var os7Url = 'http://a.ooc.openstreetmap.org/os7/{z}/{x}/{y}.jpg';
+  //var npeUrl = 'http://a.ooc.openstreetmap.org/npe/{z}/{x}/{y}.png';
+  //var os1Url = 'http://a.ooc.openstreetmap.org/os1/{z}/{x}/{y}.jpg';
+  //var os7Url = 'http://a.ooc.openstreetmap.org/os7/{z}/{x}/{y}.jpg';
   var transportUrl = 'http://b.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png';
   var cycleUrl = 'http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png';
   var localURL = 'tiles/{z}/{x}/{y}.jpg';
@@ -271,9 +272,9 @@ function drawmap(gpx_file) {
       //midnight  = L.tileLayer(cloudmadeUrl, {styleId: 999,   attribution: cloudmadeAttribution}),
       //motorways = L.tileLayer(cloudmadeUrl, {styleId: 46561, attribution: cloudmadeAttribution}),
       sea       = L.tileLayer(seaUrl, {attribution: cloudmadeAttribution}),
-      npe       = L.tileLayer(npeUrl, {attribution: cloudmadeAttribution}),
-      os1       = L.tileLayer(os1Url, {attribution: cloudmadeAttribution}),
-      os7       = L.tileLayer(os7Url, {attribution: cloudmadeAttribution}),
+      //npe       = L.tileLayer(npeUrl, {attribution: cloudmadeAttribution}),
+      //os1       = L.tileLayer(os1Url, {attribution: cloudmadeAttribution}),
+      //os7       = L.tileLayer(os7Url, {attribution: cloudmadeAttribution}),
       transport = L.tileLayer(transportUrl, {attribution: cloudmadeAttribution}),
       cycle     = L.tileLayer(cycleUrl, {attribution: cloudmadeAttribution}),
       local      = L.tileLayer(localURL, {attribution: cloudmadeAttribution}),
@@ -310,9 +311,9 @@ function drawmap(gpx_file) {
     "Mapnik": mapnik,
     //"Minimal": minimal,
     //"Night View": midnight,
-    "NPE": npe,
-    "OS1": os1,
-    "OS7": os7,
+    //"NPE": npe,
+    //"OS1": os1,
+    //"OS7": os7,
     "Transport": transport,
     "Cycle": cycle,
     "Local": local

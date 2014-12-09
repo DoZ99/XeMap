@@ -34,7 +34,7 @@ ol.avail li p select{width:125px;}
  * Other Stuff
  -------------------------*/
 
-.main               {position: absolute; float: left; width: 100%; min-height: 100%;}
+.main               {position: absolute; float: left; width: 100%; min-height: calc( 100% - 60px );}
 div#thumbs div      {float: left; padding: 0em; margin: 0.2em; border: 0px solid #ccc; text-align: center; width: 160px; height: 180px;}
 div#thumbs div p    {font-size:0.8em;}
 

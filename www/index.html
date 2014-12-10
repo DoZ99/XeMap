@@ -27,12 +27,12 @@
         
         <link rel="stylesheet" type="text/css" href="css/index.css" />  
         <link rel="stylesheet" href="css/jqsimplemenu.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="css/topcoat-mobile-dark.min.css" />
-        <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />-->
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" type="text/css" href="css/xemap.css"/>
-        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
         
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <!--<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>-->
         
         <title>XeMap</title>
     </head>
@@ -84,30 +84,31 @@
           </div>
           
           <div id="setup" class="main">
-            <div class="menu-row display">
-              <label class="topcoat-switch" id="useGPS">
-                <input type="checkbox" class="topcoat-switch__input" checked>
-                <div class="topcoat-switch__toggle"></div>
-              </label>
-              Bluetooth GPS?
-            </div>
-            
             <div class="row display">
-              <div>
-                <button class="topcoat-button" style="margin: 2px" id="refreshButton">Scan for devices</button>
-              </div>
-              <ul id="deviceList" class="topcoat-list">
-              </ul>
+            <label for="flip-a">Use Bluetooth GPS: </label>
+            <select name="slider" id="flip-a" data-role="slider">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+            
+            <br><br>
+            
+            <div>
+              <button class="topcoat-button" style="margin: 2px" id="refreshButton">Scan for devices</button>
             </div>
+            <ul id="deviceList" class="topcoat-list">
+            </ul>
+            
+            <br>
           
-            <div class="row display" id="connectedScreen">
+            <div id="connectedScreen">
               <div>
                 <button class="topcoat-button" style="margin: 2px" id="disconnectButton">Disconnect</button>
               </div>
               <div id="messageDiv" style="font-size: 2em; color: white">
               </div>
             </div>
-            
+            </div>
             <!--
             <form enctype="multipart/form-data">
                 <input name="file" type="file" />
@@ -179,7 +180,6 @@
         <script type="text/javascript" src="js/leaflet.js"></script>
         <script type="text/javascript" src="js/nmea.js"></script>
         <script type="text/javascript" src="js/bluetooth.js"></script>
-        <!--<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>-->
         <script type="text/javascript" src="js/jqsimplemenu.js"></script>
 
         <script type="text/javascript">

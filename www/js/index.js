@@ -69,22 +69,23 @@ var app = {
         $("#map").show();
         $('.menu').jqsimplemenu();
         
-        var appYes = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'file://' ) === -1;
+        var appYes = document.URL.indexOf( 'http://' ) === -1;
         if (!appYes) {
           $("#3").hide();
           $("#4").hide();
-        } else {
-          bt.connect();
         }
         //$('#clock').simpleClock();
         //  set size of the map div
-        $('.main').width('100%');
 
         console.log("Device Dimension using PhoneGap");
         console.log("Width = " + screen.width);
-        console.log("Height = " + screen.height);
+        console.log("Height = " + $(document).height());
 
         //alert('Screen Height: ' + $(window).height());
+        
+        $('.main').width('100%');
+        a = $(".menu").height();
+        $(".main").css("height", $(document).height() - a + "px");
 
         drawmap("none");
         addMarks();

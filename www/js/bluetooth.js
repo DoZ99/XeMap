@@ -60,12 +60,16 @@ var bt = {
         //connectionScreen.hidden = true;
         //connectedScreen.hidden = false;
         bt.setStatus("Connected.");
+        $("#connectButton").hide();
+        $("#disconnectButton").show();
         bluetoothSerial.subscribe("\n", bt.onmessage, bt.generateFailureFunction("Subscribe Failed"));
     },
     ondisconnect: function() {
         connectionScreen.hidden = false;
         connectedScreen.hidden = true;
         bt.setStatus("Disconnected.");
+        $("#connectButton").show();
+        $("#disconnectButton").hide();
     },
     timeoutId: 0,
     setStatus: function(status) {
@@ -84,7 +88,6 @@ var bt = {
         
         devices.forEach(function(device) {
             listItem = document.createElement('li');
-            listItem.className = "topcoat-list__item";
             if (device.hasOwnProperty("uuid")) { // TODO https://github.com/don/BluetoothSerial/issues/5
                 deviceId = device.uuid;
             } else if (device.hasOwnProperty("address")) {

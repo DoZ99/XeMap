@@ -67,6 +67,7 @@ var app = {
         
         $(".main").hide();
         $("#map").show();
+        $("#disconnectButton").hide();
         
         var appYes = document.URL.indexOf( 'http://' ) === -1;
         if (!appYes) {

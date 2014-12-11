@@ -93,16 +93,18 @@
             <br><br>
             
             <div>
-              <button class="topcoat-button" style="margin: 2px" id="refreshButton">Scan for devices</button>
+              <button style="margin: 2px" id="refreshButton">Scan for devices</button>
             </div>
-            <ul id="deviceList" class="topcoat-list">
-            </ul>
+            <div class="row display">
+              <ul data-role="listview" data-inset="true" id="deviceList">
+              </ul>
+            </div>
             
             <br>
           
             <div id="connectedScreen">
               <div>
-                <button class="topcoat-button" style="margin: 2px" id="disconnectButton">Disconnect</button>
+                <button style="margin: 2px" id="disconnectButton">Disconnect</button>
               </div>
               <div id="messageDiv" style="font-size: 2em; color: white">
               </div>

@@ -28,10 +28,7 @@ var bt = {
         deviceList.ontouchstart = bt.connect; // assume not scrolling
         refreshButton.ontouchstart = bt.list;
         disconnectButton.ontouchstart = bt.disconnect;
-        
-        //connectionScreen.hidden = false;
-        //connectedScreen.hidden = true;
-
+        $("#connectedScreen").hide();
         //bt.list();
     },
     list: function(event) {
@@ -43,6 +40,7 @@ var bt = {
     },
     connect: function (e) {
         bt.setStatus("Connecting...");
+        
         device = e.target.getAttribute('deviceId');
         console.log("Requesting connection to " + device);
         bt.setStatus("Requesting connection to " + device);
@@ -52,25 +50,22 @@ var bt = {
         if (event) {
             event.preventDefault();
         }
-
+        
         bt.setStatus("Disconnecting...");
         bluetoothSerial.disconnect(bt.ondisconnect);
     },
     onconnect: function() {
-        //connectionScreen.hidden = true;
-        //connectedScreen.hidden = false;
         bt.setStatus("Connected.");
-        $("#connectButton").hide();
-        $("#disconnectButton").show();
+        $("#connectedScreen").show();
+        $("#disConnectedScreen").hide();
         bluetoothSerial.subscribe("\n", bt.onmessage, bt.generateFailureFunction("Subscribe Failed"));
     },
     ondisconnect: function() {
-        connectionScreen.hidden = false;
-        connectedScreen.hidden = true;
         bt.setStatus("Disconnected.");
-        $("#connectButton").show();
-        $("#disconnectButton").hide();
+        $("#connectedScreen").hide();
+        $("#disConnectedScreen").show();
     },
+    
     timeoutId: 0,
     setStatus: function(status) {
         if (bt.timeoutId) {
@@ -96,7 +91,8 @@ var bt = {
                 deviceId = "ERROR " + JSON.stringify(device);
             }
             listItem.setAttribute('deviceId', deviceId);            
-            listItem.innerHTML = device.name + "<br/><i>" + deviceId + "</i>";
+            //listItem.innerHTML = device.name + "<br/><i>" + deviceId + "</i>";
+            listItem.innerHTML = device.name;
             deviceList.appendChild(listItem);
         });
 
@@ -124,7 +120,7 @@ var bt = {
     },
     onmessage: function(message) {
         //console.log(message);
-        parseNMEA(message);
+       parseNMEA(message);
         if ($("#btMsg").is(":visible")) {
             msg.push(message)
             btMsg.value = msg;

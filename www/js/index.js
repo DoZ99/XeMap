@@ -67,7 +67,6 @@ var app = {
         
         $(".main").hide();
         $("#map").show();
-        $("#disconnectButton").hide();
         
         var appYes = document.URL.indexOf( 'http://' ) === -1;
         if (!appYes) {
@@ -76,6 +75,17 @@ var app = {
         }
         //$('#clock').simpleClock();
         //  set size of the map div
+        
+        //theming
+        $( "#theme-selector input" ).on( "change", function( event ) {
+            var themeClass = $( "#theme-selector input:checked" ).attr( "id" );
+
+            $( "#app" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+//            $( "#ui-body-test" ).removeClass( "ui-body-a ui-body-b" ).addClass( "ui-body-" + themeClass );
+//            $( "#ui-bar-test, #ui-bar-form" ).removeClass( "ui-bar-a ui-bar-b" ).addClass( "ui-bar-" + themeClass );
+//            $( ".ui-collapsible-content" ).removeClass( "ui-body-a ui-body-b" ).addClass( "ui-body-" + themeClass );
+            $( ".theme" ).text( themeClass );
+        });
 
         console.log("Device Dimension using PhoneGap");
         console.log("Width = " + screen.width);
@@ -86,6 +96,7 @@ var app = {
         $('.main').width('100%');
         a = $(".menu").height();
         $(".main").css("height", $(document).height() - a + "px");
+        $("#btMsg").css("height", $(document).height() * 0.8 + "px");
 
         drawmap("none");
         addMarks();
@@ -234,10 +245,10 @@ var app = {
 };
 
 function jumpTo(lon, lat, zoom) {
-	var x = Lon2Merc(lon);
-	var y = Lat2Merc(lat);
-	map.setCenter(new L.LatLng().LonLat(x, y), zoom);
-	return false;
+    var x = Lon2Merc(lon);
+    var y = Lat2Merc(lat);
+    map.setCenter(new L.LatLng().LonLat(x, y), zoom);
+    return false;
 }
 
 function jumpTotrack() {
@@ -559,85 +570,85 @@ function roundToNearest(number, toNearest) {
 }
 
 function parseNMEA(data) {
-//    line = NMEA.parse(data);
-//    
-//    var a = 0.7;
-//    var b = 0.3;
-//    
-//    if (line.stw)           myNMEA.stw = myNMEA.stw*a + line.stw*b;
-//    if (line.speedKnots)    myNMEA.sog = myNMEA.sog*a + line.speedKnots*b;
-//    if (line.trackTrue)     myNMEA.cog = myNMEA.cog*a + line.trackTrue*b;
-//    if (line.lat)           myNMEA.lat = line.lat;
-//    if (line.lon)           myNMEA.lng = line.lon;
-//    if (line.twa)           {
-//        myNMEA.twa = myNMEA.twa*a + line.twa*b;
-//        shift = line.twa-myNMEA.twa;
-//    }
-//    if (line.tws)           myNMEA.tws = myNMEA.tws*a + line.tws*b;
-//    if (line.twd)           myNMEA.twd = myNMEA.twd*a + line.twd*b;
-//    if (line.hdg)           myNMEA.hdg = myNMEA.twd*a + line.hdg*b;
-//    
-//    now = new Date();
-//    if (now.getTime() - updateTime.getTime() > 3000) {
-//        updateTime = new Date();
-//        if (myNMEA.lat) {
-//            myPos = L.latLng(myNMEA.lat, myNMEA.lng);
-//            updateMarker(myNMEA.cog);
-//            $("#pos").html(myNMEA.lat.toFixed(4) + "<br/>" + myNMEA.lng.toFixed(4));
-//            $("#sog").html(myNMEA.speedKnots);
-//            $("#cog").html(myNMEA.trackTrue);
-//            if (nextMark) {
-//                dtw = myPos.distanceTo(nextMark)*0.000539956803;
-//                dtw = dtw.toFixed(2);
-//                ttw = 999;
-//                btw = getBaring(myPos, nextMark);
-//
-//                vmg = Math.cos(myNMEA.twa)*myNMEA.stw;
-//                vmgtwp = Math.cos(btw-myNMEA.hdg)*myNMEA.stw;
-//                $("#ttw").html(ttw);
-//                $("#dtw").html(dtw);
-//                $("#btw").html(btw);
-//                updateMarker(myNMEA.cog);
+    line = NMEA.parse(data);
+    
+    var a = 0.7;
+    var b = 0.3;
+    
+    if (line.stw)           myNMEA.stw = myNMEA.stw*a + line.stw*b;
+    if (line.speedKnots)    myNMEA.sog = myNMEA.sog*a + line.speedKnots*b;
+    if (line.trackTrue)     myNMEA.cog = myNMEA.cog*a + line.trackTrue*b;
+    if (line.lat)           myNMEA.lat = line.lat;
+    if (line.lon)           myNMEA.lng = line.lon;
+    if (line.twa)           {
+        myNMEA.twa = myNMEA.twa*a + line.twa*b;
+        shift = line.twa-myNMEA.twa;
+    }
+    if (line.tws)           myNMEA.tws = myNMEA.tws*a + line.tws*b;
+    if (line.twd)           myNMEA.twd = myNMEA.twd*a + line.twd*b;
+    if (line.hdg)           myNMEA.hdg = myNMEA.twd*a + line.hdg*b;
+    
+    now = new Date();
+    if (now.getTime() - updateTime.getTime() > 3000) {
+        updateTime = new Date();
+        if (myNMEA.lat) {
+            myPos = L.latLng(myNMEA.lat, myNMEA.lng);
+            updateMarker(myNMEA.cog);
+            $("#pos").html(myNMEA.lat.toFixed(4) + "<br/>" + myNMEA.lng.toFixed(4));
+            $("#sog").html(myNMEA.speedKnots);
+            $("#cog").html(myNMEA.trackTrue);
+            if (nextMark) {
+                dtw = myPos.distanceTo(nextMark)*0.000539956803;
+                dtw = dtw.toFixed(2);
+                ttw = 999;
+                btw = getBaring(myPos, nextMark);
+
+                vmg = Math.cos(myNMEA.twa)*myNMEA.stw;
+                vmgtwp = Math.cos(btw-myNMEA.hdg)*myNMEA.stw;
+                $("#ttw").html(ttw);
+                $("#dtw").html(dtw);
+                $("#btw").html(btw);
+                updateMarker(myNMEA.cog);
+            };
+//                $("#time").html(line.timestamp);
+        };
+
+        if (myNMEA.stw)           {$("#speed").html(myNMEA.stw);};
+        if (myNMEA.twa)           {$("#twa").html(myNMEA.twa);};
+        if (myNMEA.tws)           {$("#tws").html(myNMEA.tws);};
+        if (myNMEA.twd)           {$("#twd").html(myNMEA.twd);};
+        if (line.twa)             {$("#shift").html(shift);};
+        //$("#vmgPercent").html(line.lat);
+    };
+    
+    //            if (line.stw)           {$("#speed").html(line.stw);};
+//            if (line.speedKnots)    {$("#sog").html(line.speedKnots);};
+//            if (line.trackTrue)     {$("#cog").html(line.trackTrue);};
+//            if (line.type == "nav-info") {
+//                myPos = L.latLng(line.lat, line.lon);
+//                if (nextMark) {
+//                    dtw = myPos.distanceTo(nextMark)*0.000539956803;
+//                    dtw = dtw.toFixed(2);
+//                    ttw = 999;
+//                    btw = getBaring(myPos, nextMark);
+//                    
+//                    vmg = Math.cos(nmea.twa)*nmea.stw;
+//                    vmgtwp = Math.cos(btw-hdg)*nmea.stw;
+//                    $("#ttw").html(ttw);
+//                    $("#dtw").html(dtw);
+//                    $("#btw").html(btw);
+//                }
+//                $("#pos").html(line.lat + "<br/>" + line.lon);
+//                $("#time").html(line.timestamp);
+//                updateMarker(270);
+//                //$("#shift").html(line.lat);
+//                //$("#vmgPercent").html(line.lat);
 //            };
-////                $("#time").html(line.timestamp);
-//        };
-//
-//        if (myNMEA.stw)           {$("#speed").html(myNMEA.stw);};
-//        if (myNMEA.twa)           {$("#twa").html(myNMEA.twa);};
-//        if (myNMEA.tws)           {$("#tws").html(myNMEA.tws);};
-//        if (myNMEA.twd)           {$("#twd").html(myNMEA.twd);};
-//        if (line.twa)             {$("#shift").html(shift);};
-//        //$("#vmgPercent").html(line.lat);
-//    };
-//    
-//    //            if (line.stw)           {$("#speed").html(line.stw);};
-////            if (line.speedKnots)    {$("#sog").html(line.speedKnots);};
-////            if (line.trackTrue)     {$("#cog").html(line.trackTrue);};
-////            if (line.type == "nav-info") {
-////                myPos = L.latLng(line.lat, line.lon);
-////                if (nextMark) {
-////                    dtw = myPos.distanceTo(nextMark)*0.000539956803;
-////                    dtw = dtw.toFixed(2);
-////                    ttw = 999;
-////                    btw = getBaring(myPos, nextMark);
-////                    
-////                    vmg = Math.cos(nmea.twa)*nmea.stw;
-////                    vmgtwp = Math.cos(btw-hdg)*nmea.stw;
-////                    $("#ttw").html(ttw);
-////                    $("#dtw").html(dtw);
-////                    $("#btw").html(btw);
-////                }
-////                $("#pos").html(line.lat + "<br/>" + line.lon);
-////                $("#time").html(line.timestamp);
-////                updateMarker(270);
-////                //$("#shift").html(line.lat);
-////                //$("#vmgPercent").html(line.lat);
-////            };
-////            
-////            if (line.twa)           {$("#twa").html(line.twa);};
-////            if (line.tws)           {$("#tws").html(line.tws);};
-////            if (line.twd)           {$("#twd").html(line.twd);};
-////            //if (line.twa)           {$("#vmg").html(line.speedKnots);};
+//            
+//            if (line.twa)           {$("#twa").html(line.twa);};
+//            if (line.tws)           {$("#tws").html(line.tws);};
+//            if (line.twd)           {$("#twd").html(line.twd);};
+//            //if (line.twa)           {$("#vmg").html(line.speedKnots);};
     return true;
 }
 

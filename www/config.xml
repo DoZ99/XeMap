@@ -13,6 +13,7 @@
     
     <preference name="fullscreen" value="true"/>
     <preference name="webviewbounce" value="true"/>
+    <preference name="EnableViewportScale" value="true" />
     
     <preference name="permissions" value="BLUETOOTH" />
     
